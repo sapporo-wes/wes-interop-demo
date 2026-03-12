@@ -56,6 +56,5 @@ steps:
     run: tools/bcftools-query.cwl
     in:
       vcf: fill_tags/tagged_vcf
-      regions: regions
       site_id: site_id
     out: [summary]

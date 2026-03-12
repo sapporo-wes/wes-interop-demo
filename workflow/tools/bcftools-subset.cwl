@@ -5,20 +5,16 @@ class: CommandLineTool
 label: bcftools view — subset samples and target regions
 doc: |
   Subsets a multi-sample VCF to the specified samples and genomic regions.
-  Removes sites that are monomorphic after subsetting (AC=0 or AC=AN).
 
-requirements:
+hints:
   DockerRequirement:
     dockerPull: quay.io/biocontainers/bcftools:1.21--h3a4b0d4_0
-  InlineJavascriptRequirement: {}
 
 baseCommand: bcftools
 arguments:
   - view
   - --output-type=z
   - --output=subset.vcf.gz
-  - --min-ac=1
-  - --max-ac=alleles-1
 
 inputs:
   vcf:

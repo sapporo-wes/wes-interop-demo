@@ -8,7 +8,7 @@ doc: |
 
 hints:
   DockerRequirement:
-    dockerPull: quay.io/biocontainers/bcftools:1.21--h3a4b0d4_0
+    dockerPull: quay.io/biocontainers/bcftools:1.21--h3a4d415_1
 
 baseCommand: bcftools
 arguments:

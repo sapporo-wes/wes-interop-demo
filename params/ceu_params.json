@@ -1,0 +1,26 @@
+{
+  "workflow_type": "CWL",
+  "workflow_type_version": "v1.0",
+  "workflow_url": "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.cwl",
+  "workflow_engine": "cwltool",
+  "workflow_params": {
+    "vcf": {
+      "class": "File",
+      "location": "/data/1000g/ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz"
+    },
+    "samples": {
+      "class": "File",
+      "location": "/data/1000g/ceu_samples.txt"
+    },
+    "regions": {
+      "class": "File",
+      "location": "/data/wes-interop-demo/data/target_snps.bed"
+    },
+    "site_id": "CEU"
+  },
+  "tags": {
+    "demo": "wes-interop",
+    "population": "CEU",
+    "dataset": "1000genomes-phase3"
+  }
+}

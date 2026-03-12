@@ -1,0 +1,6 @@
+# Target SNPs for federated frequency analysis (GRCh38 coordinates)
+# Format: chrom  start(0-based)  end  snp_id  gene
+chr2	108999270	108999271	rs3827760	EDARV370A
+chr12	111803911	111803912	rs671	ALDH2
+chr2	135851283	135851284	rs4988235	LCT
+chr15	48128818	48128819	rs1426654	SLC24A5

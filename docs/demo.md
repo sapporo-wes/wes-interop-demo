@@ -24,7 +24,7 @@ This demo compares four textbook population-differentiated SNPs between:
 │  Sapporo WES (AWS EC2)  │          │  WESkit (collaborator)   │
 │                         │          │                          │
 │  data: 1000G JPT VCF    │          │  data: 1000G CEU VCF     │
-│  workflow: snp-freq.cwl │          │  workflow: snp-freq.cwl  │
+│  workflow: snp-freq.smk │          │  workflow: snp-freq.smk  │
 │  output: summary_jpt.tsv│          │  output: summary_ceu.tsv │
 └──────────┬──────────────┘          └──────────┬───────────────┘
            │                                    │
@@ -38,11 +38,15 @@ This demo compares four textbook population-differentiated SNPs between:
 
 ## Workflow
 
-Each site runs [`workflow/snp-freq.cwl`](../workflow/snp-freq.cwl), which:
+Each site runs [`workflow/snp-freq.smk`](../workflow/snp-freq.smk) (Snakemake), which:
 
 1. Subsets the local VCF to site-specific samples and target SNP regions (`bcftools view`)
 2. Computes allele counts and frequencies (`bcftools +fill-tags`)
 3. Extracts a summary TSV (`bcftools query`)
+
+bcftools is installed via the conda environment defined in [`workflow/envs/bcftools.yaml`](../workflow/envs/bcftools.yaml). Snakemake is invoked with `--use-conda`; the env file is supplied as a workflow attachment alongside the Snakefile.
+
+> **Note:** WESkit does not support CWL. The equivalent CWL workflow (`workflow/snp-freq.cwl`) is kept as reference but is not used in the federated demo.
 
 **Output schema** (`summary.tsv`):
 
@@ -56,7 +60,7 @@ No per-sample genotypes. The data custodian at each site can inspect the workflo
 
 ## Data governance step
 
-Sapporo supports pre-approving executable workflows via `executable_workflows.json`. The data custodian registers `snp-freq.cwl` by its URL; any other workflow URL is rejected with HTTP 400. This ensures only the reviewed, approved workflow can run against the protected data.
+Sapporo supports pre-approving executable workflows via `executable_workflows.json`. The data custodian registers `snp-freq.smk` by its URL; any other workflow URL is rejected with HTTP 400. This ensures only the reviewed, approved workflow can run against the protected data.
 
 ## Step-by-step: shell script mode
 
@@ -72,7 +76,7 @@ export WESKIT_ENDPOINT=https://wes-de.example.org
 ```bash
 RUN_JP=$(curl -s -X POST $SAPPORO_ENDPOINT/runs \
   -H "Content-Type: application/json" \
-  -d @params/jpt_params.json | jq -r .run_id)
+  -d @params/jpt_params_smk.json | jq -r .run_id)
 echo "JP run: $RUN_JP"
 ```
 
@@ -82,7 +86,7 @@ echo "JP run: $RUN_JP"
 # WESkit uses the same GA4GH WES API
 RUN_DE=$(curl -s -X POST $WESKIT_ENDPOINT/ga4gh/wes/v1/runs \
   -H "Content-Type: application/json" \
-  -d @params/ceu_params.json | jq -r .run_id)
+  -d @params/ceu_params_smk.json | jq -r .run_id)
 echo "DE run: $RUN_DE"
 ```
 
@@ -118,7 +122,7 @@ python3 scripts/aggregate.py results/summary_jpt.tsv results/summary_ceu.tsv \
 
 Set the two endpoints in your environment, then ask the agent:
 
-> "Submit `workflow/snp-freq.cwl` with `params/jpt_params.json` to `$SAPPORO_ENDPOINT` and `params/ceu_params.json` to `$WESKIT_ENDPOINT`. Wait for both to complete, download `summary.tsv` from each, then run `scripts/aggregate.py` and report the results."
+> "Submit `workflow/snp-freq.smk` with `params/jpt_params_smk.json` to `$SAPPORO_ENDPOINT` and `params/ceu_params_smk.json` to `$WESKIT_ENDPOINT`. Wait for both to complete, download `summary.tsv` from each, then run `scripts/aggregate.py` and report the results."
 
 The agent uses [`docs/agent-skill.md`](https://github.com/sapporo-wes/sapporo-service/blob/main/docs/agent-skill.md) for the Sapporo side and the WESkit equivalent for the German side.
 

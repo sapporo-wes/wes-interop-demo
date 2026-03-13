@@ -2,11 +2,14 @@
 
 ## Status
 
-Local testing complete as of 2026-03-12 (commit `6b665ca`):
+Local testing complete as of 2026-03-13 (commit `3711b67`):
 
-- CWL workflow validated with `cwltool --no-container` and Docker (`bcftools:1.21--h3a4d415_1`)
+- **Snakemake workflow** (`workflow/snp-freq.smk`) added and validated — WESkit does not support CWL
+- CWL workflow (`workflow/snp-freq.cwl` + `tools/`) preserved as reference
+- Snakemake run produces identical output to CWL run (verified against `tests/expected/`)
 - Aggregation script validated with synthetic JPT/CEU data
-- Expected outputs committed to `tests/expected/`
+- Sapporo submission params updated: `params/jpt_params_smk.json` (SMK, `--use-conda`)
+- WESkit submission params drafted: `params/ceu_params_smk.json` (attachment mechanism TBD)
 
 ---
 
@@ -30,11 +33,12 @@ Contact collaborators for:
 - WESkit base URL
 - Auth token / credentials
 - Confirm WES API path (expected: `/ga4gh/wes/v1`)
-- Confirm supported workflow engines (cwltool assumed)
+- Confirm Snakemake engine name and version accepted by WESkit
+- **Confirm how to attach extra files** (e.g. `workflow/envs/bcftools.yaml`) alongside the Snakefile — `workflow_attachment_obj` is Sapporo-specific and may not be supported by WESkit
 
 Once available:
-- Update `params/ceu_params.json` with real endpoint and credentials
-- Update `scripts/submit.sh` `CEU_ENDPOINT` variable
+- Update `params/ceu_params_smk.json` with real endpoint, credentials, and correct attachment mechanism
+- Update `scripts/submit.sh` `WESKIT_ENDPOINT` variable
 - Run a test submission with the synthetic VCF to confirm connectivity
 
 ---

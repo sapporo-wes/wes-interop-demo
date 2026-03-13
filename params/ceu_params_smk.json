@@ -1,0 +1,20 @@
+{
+  "workflow_type": "SMK",
+  "workflow_type_version": "1.0",
+  "workflow_url": "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.smk",
+  "workflow_engine": "snakemake",
+  "workflow_engine_parameters": "--use-conda --conda-frontend mamba",
+  "workflow_params": {
+    "vcf": "/data/1000g/ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz",
+    "samples": "/data/1000g/ceu_samples.txt",
+    "regions": "/data/wes-interop-demo/data/target_snps.bed",
+    "site_id": "CEU"
+  },
+  "workflow_engine_parameters_note": "WESkit may use different engine param flags — verify with collaborators before submitting.",
+  "workflow_attachment_obj_note": "workflow_attachment_obj is Sapporo-specific. For WESkit, supply the conda env file via the appropriate attachment mechanism (TBD with collaborators).",
+  "tags": {
+    "demo": "wes-interop",
+    "population": "CEU",
+    "dataset": "1000genomes-phase3"
+  }
+}

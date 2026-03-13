@@ -1,0 +1,4 @@
+vcf: /Users/inutano/work/wes-test/wes-interop-demo/tests/data/test.vcf.gz
+samples: /Users/inutano/work/wes-test/wes-interop-demo/tests/data/test_samples.txt
+regions: /Users/inutano/work/wes-test/wes-interop-demo/data/target_snps.bed
+site_id: TEST

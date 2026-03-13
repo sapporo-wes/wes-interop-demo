@@ -1,2 +1,3 @@
 tests/output/
 tests/data/test.vcf
+tests/output_smk/

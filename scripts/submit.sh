@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # submit.sh — Submit the SNP frequency workflow to both WES sites and aggregate results.
 # Usage: bash scripts/submit.sh
+#
+# Workflow: workflow/snp-freq.smk (Snakemake)
+# Params:   params/jpt_params_smk.json  (Sapporo — Japanese site)
+#           params/ceu_params_smk.json  (WESkit  — German site)
 set -euo pipefail
 
 SAPPORO_ENDPOINT="${SAPPORO_ENDPOINT:-http://localhost:1122}"
@@ -27,16 +31,16 @@ poll_until_done() {
     done
 }
 
-echo "==> Submitting to Japanese site (Sapporo)..."
+echo "==> Submitting to Japanese site (Sapporo, Snakemake)..."
 RUN_JP=$(curl -fsSL -X POST "$SAPPORO_ENDPOINT/runs" \
     -H "Content-Type: application/json" \
-    -d @params/jpt_params.json | jq -r .run_id)
+    -d @params/jpt_params_smk.json | jq -r .run_id)
 echo "    run_id: $RUN_JP"
 
-echo "==> Submitting to German site (WESkit)..."
+echo "==> Submitting to German site (WESkit, Snakemake)..."
 RUN_DE=$(curl -fsSL -X POST "$WESKIT_ENDPOINT/ga4gh/wes/v1/runs" \
     -H "Content-Type: application/json" \
-    -d @params/ceu_params.json | jq -r .run_id)
+    -d @params/ceu_params_smk.json | jq -r .run_id)
 echo "    run_id: $RUN_DE"
 
 echo "==> Polling..."

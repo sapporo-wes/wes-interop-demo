@@ -3,7 +3,10 @@
   "workflow_type_version": "1.0",
   "workflow_url": "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.smk",
   "workflow_engine": "snakemake",
-  "workflow_engine_parameters": "--use-conda --conda-frontend mamba",
+  "workflow_engine_parameters": {
+    "--use-conda": "",
+    "--cores": "all"
+  },
   "workflow_params": {
     "vcf": "/data/1000g/ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz",
     "samples": "/data/1000g/ceu_samples.txt",

@@ -30,34 +30,50 @@ docker compose up -d
 curl localhost:1122/service-info | jq .workflow_engine_versions
 ```
 
-## 3. Mount VCF data
+## 3. Prepare and mount VCF data
 
-The compose.yml mounts `${PWD}/runs` for workflow execution. VCF files must be accessible
-at the paths specified in `params/jpt_params.json`. Recommended layout:
+The target SNPs span chromosomes 2, 12, and 15. Download the per-chromosome
+1000 Genomes phase 3 VCFs and merge them into a single file:
+
+```bash
+# Download chr2, chr12, chr15 (example — adjust URL for your mirror)
+BASE=https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502
+for CHR in 2 12 15; do
+  wget ${BASE}/ALL.chr${CHR}.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz{,.tbi}
+done
+
+# Merge and index
+bcftools concat --allow-overlaps \
+  ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
+  ALL.chr12.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
+  ALL.chr15.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
+  --output-type z --output ALL.chr2_12_15.phase3.vcf.gz
+tabix -p vcf ALL.chr2_12_15.phase3.vcf.gz
+```
+
+Recommended layout on the host:
 
 ```
 /data/
 ├── 1000g/
-│   ├── ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz
-│   ├── ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz.tbi
-│   ├── ALL.chr12.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz
-│   ├── ALL.chr12.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz.tbi
-│   ├── ALL.chr15.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz
-│   ├── ALL.chr15.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz.tbi
+│   ├── ALL.chr2_12_15.phase3.vcf.gz
+│   ├── ALL.chr2_12_15.phase3.vcf.gz.tbi
 │   └── jpt_samples.txt
 └── wes-interop-demo/
     └── data/
         └── target_snps.bed
 ```
 
-Add the `/data` mount to `compose.yml`:
+Make `/data` accessible to Sapporo's inner workflow containers via
+`SAPPORO_EXTRA_DOCKER_ARGS` in `compose.yml`:
 
 ```yaml
-volumes:
-  - ${PWD}/runs:${PWD}/runs:rw
-  - /var/run/docker.sock:/var/run/docker.sock
-  - /data:/data:ro        # <-- add this line
+environment:
+  - SAPPORO_EXTRA_DOCKER_ARGS=-v /data:/data
 ```
+
+This passes `-v /data:/data` to the `snakemake/snakemake` container that
+executes the workflow, so it can read files at `/data/1000g/...`.
 
 ## 4. Restrict executable workflows (data governance)
 
@@ -66,7 +82,7 @@ Create `executable_workflows.json` to allow only the reviewed workflow:
 ```json
 {
   "workflows": [
-    "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.cwl"
+    "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.smk"
   ]
 }
 ```

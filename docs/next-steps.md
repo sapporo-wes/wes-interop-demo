@@ -2,14 +2,13 @@
 
 ## Status
 
-Local testing complete as of 2026-03-13 (commit `3711b67`):
+Sapporo end-to-end test complete as of 2026-03-16 (commit `9edea12`):
 
-- **Snakemake workflow** (`workflow/snp-freq.smk`) added and validated — WESkit does not support CWL
-- CWL workflow (`workflow/snp-freq.cwl` + `tools/`) preserved as reference
-- Snakemake run produces identical output to CWL run (verified against `tests/expected/`)
-- Aggregation script validated with synthetic JPT/CEU data
-- Sapporo submission params updated: `params/jpt_params_smk.json` (SMK, `--use-conda`)
-- WESkit submission params drafted: `params/ceu_params_smk.json` (attachment mechanism TBD)
+- **Snakemake workflow** (`workflow/snp-freq.smk`) validated locally and via Sapporo WES API
+- Sapporo submission confirmed working: `workflow_engine_parameters` as dict, `--cores all` required, `workflow_attachment_obj` for conda env
+- `SAPPORO_EXTRA_DOCKER_ARGS` feature added to sapporo-service (PR #55 open) — required to mount data directories into inner Snakemake containers
+- CWL workflow preserved as reference; aggregation script validated
+- WESkit submission params drafted: `params/ceu_params_smk.json` (attachment mechanism TBD with collaborators)
 
 ---
 
@@ -18,12 +17,15 @@ Local testing complete as of 2026-03-13 (commit `3711b67`):
 Follow `infra/ec2-setup.md`.
 
 Key tasks:
-- Launch EC2 instance (recommend t3.medium+, Amazon Linux 2 or Ubuntu 22.04)
-- Install Docker and Docker Compose
-- Clone this repo; mount 1000G JPT VCF under `/data`
+- Launch EC2 instance (recommend t3.large+, Ubuntu 24.04)
+- Install Docker
+- Download `compose.yml` from sapporo-service; set `SAPPORO_EXTRA_DOCKER_ARGS=-v /data:/data`
+- Merge chr2, chr12, chr15 1000G VCFs into `/data/1000g/ALL.chr2_12_15.phase3.vcf.gz` (see `infra/ec2-setup.md` §3)
 - Start Sapporo with `docker compose up -d`
 - Confirm `GET /service-info` returns healthy response
 - Set `SAPPORO_ENDPOINT` in `scripts/submit.sh`
+
+**Blocked on**: sapporo-service PR #55 being merged (or manually patching `run.sh`)
 
 ---
 
@@ -47,17 +49,16 @@ Once available:
 
 For each site, prepare the input VCF:
 
-**JPT (Japanese site):**
-- Download 1000G phase 3 JPT samples from [IGSR](https://www.internationalgenome.org/)
-- Chromosomes 2, 12, 15 (cover all four target SNPs)
-- Bgzip + tabix index the VCF
-- Upload to EC2 under `/data/jpt/`
-- Create `params/jpt_samples.txt` listing JPT sample IDs
+**Both sites:**
+- Download 1000G phase 3 per-chromosome VCFs for chr2, chr12, chr15 from [IGSR](https://www.internationalgenome.org/)
+- Merge with `bcftools concat` into `ALL.chr2_12_15.phase3.vcf.gz` (see `infra/ec2-setup.md` §3 for exact commands)
+- Place merged VCF at `/data/1000g/ALL.chr2_12_15.phase3.vcf.gz` with `.tbi` index
 
-**CEU (German site):**
-- Download 1000G phase 3 CEU samples
-- Same chromosomes
-- Prepare `params/ceu_samples.txt` listing CEU sample IDs
+**JPT (Japanese site — EC2):**
+- Create `data/jpt_samples.txt` with JPT sample IDs from 1000G phase 3 panel
+
+**CEU (German site — WESkit):**
+- Create `data/ceu_samples.txt` with CEU sample IDs from 1000G phase 3 panel
 
 ---
 

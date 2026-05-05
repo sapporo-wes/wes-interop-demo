@@ -28,22 +28,22 @@ present in the 1000 Genomes multi-sample VCFs; the workflow subsets to site-spec
 samples using the sample list.
 
 ```bash
-BASE=http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502
+BASE=https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/data_collections/1000_genomes_project/release/20190312_biallelic_SNV_and_INDEL
 
 # Download chr2, chr12, chr15
 for CHR in 2 12 15; do
-  curl -O ${BASE}/ALL.chr${CHR}.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz
-  curl -O ${BASE}/ALL.chr${CHR}.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz.tbi
+  curl -O ${BASE}/ALL.chr${CHR}.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
+  curl -O ${BASE}/ALL.chr${CHR}.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz.tbi
 done
 
 # Merge into a single indexed VCF
 bcftools concat --allow-overlaps \
-  ALL.chr2.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
-  ALL.chr12.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
-  ALL.chr15.phase3_shapeit2_mvncall_integrated_v5b.20130502.genotypes.vcf.gz \
-  --output-type z --output ALL.chr2_12_15.phase3.vcf.gz
-tabix -p vcf ALL.chr2_12_15.phase3.vcf.gz
+  ALL.chr2.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+  ALL.chr12.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+  ALL.chr15.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz \
+  --output-type z --output ALL.chr2_12_15.GRCh38.phased.vcf.gz
+tabix -p vcf ALL.chr2_12_15.GRCh38.phased.vcf.gz
 ```
 
-Place the merged file at `/data/1000g/ALL.chr2_12_15.phase3.vcf.gz` on each site's server.
+Place the merged file at `/data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz` on each site's server.
 This is the path referenced in `params/jpt_params_smk.json` and `params/ceu_params_smk.json`.

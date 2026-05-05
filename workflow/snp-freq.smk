@@ -32,12 +32,28 @@ rule subset:
     conda:
         "envs/bcftools.yaml"
     shell:
-        "bcftools view "
-        "--samples-file {input.samples} "
-        "--regions-file {input.regions} "
-        "--output-type z "
-        "--output {output} "
-        "{input.vcf}"
+        r"""
+        # Match BED chromosome naming to the VCF contig style (chr-prefixed vs plain).
+        FIRST_CONTIG=$(bcftools view -h {input.vcf} | awk -F'[=,]' '/^##contig=<ID=/{{print $3; exit}}')
+        if [[ "$FIRST_CONTIG" == chr* ]]; then
+          awk 'BEGIN{{OFS="\t"}} /^#/ {{print; next}} {{if ($1 !~ /^chr/) $1="chr"$1; print}}' {input.regions} > regions.normalized.bed
+        else
+          awk 'BEGIN{{OFS="\t"}} /^#/ {{print; next}} {{sub(/^chr/, "", $1); print}}' {input.regions} > regions.normalized.bed
+        fi
+        bcftools view \
+          --samples-file {input.samples} \
+          --regions-file regions.normalized.bed \
+          --output-type z \
+          --output subset.raw.vcf.gz \
+          {input.vcf}
+        # Replace/define VCF ID from BED col4 so downstream summary has stable SNP labels.
+        bcftools annotate \
+          --annotations regions.normalized.bed \
+          --columns CHROM,FROM,TO,ID \
+          --output-type z \
+          --output {output} \
+          subset.raw.vcf.gz
+        """
 
 
 rule fill_tags:

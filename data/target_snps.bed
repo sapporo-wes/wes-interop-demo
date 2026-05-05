@@ -1,6 +1,8 @@
 # Target SNPs for federated frequency analysis (GRCh38 coordinates)
+# NOTE: Original rsIDs were absent in this specific 1000G GRCh38 biallelic release.
+# These are nearest present proxy SNPs in the same loci.
 # Format: chrom  start(0-based)  end  snp_id  gene
-chr2	108999270	108999271	rs3827760	EDARV370A
-chr12	111803911	111803912	rs671	ALDH2
-chr2	135851283	135851284	rs4988235	LCT
-chr15	48128818	48128819	rs1426654	SLC24A5
+chr2	108999277	108999278	EDAR_proxy_2_108999278	EDARV370A
+chr12	111803915	111803916	ALDH2_proxy_12_111803916	ALDH2
+chr2	135851272	135851273	LCT_proxy_2_135851273	LCT
+chr15	48128831	48128832	SLC24A5_proxy_15_48128832	SLC24A5

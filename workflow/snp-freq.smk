@@ -8,11 +8,13 @@
 #   samples  path to text file with one sample ID per line
 #   regions  path to BED file of target SNP positions (BED format, 0-based)
 #   site_id  string label for output (e.g. "JPT" or "CEU")
+#   bcftools_env optional conda environment path (default: envs/bcftools.yaml)
 
 VCF     = config["vcf"]
 SAMPLES = config["samples"]
 REGIONS = config["regions"]
 SITE_ID = config["site_id"]
+BCFTOOLS_ENV = config.get("bcftools_env", "envs/bcftools.yaml")
 
 
 rule all:
@@ -30,7 +32,7 @@ rule subset:
     output:
         "subset.vcf.gz",
     conda:
-        "envs/bcftools.yaml"
+        BCFTOOLS_ENV
     shell:
         r"""
         # Match BED chromosome naming to the VCF contig style (chr-prefixed vs plain).
@@ -63,7 +65,7 @@ rule fill_tags:
     output:
         "tagged.vcf.gz",
     conda:
-        "envs/bcftools.yaml"
+        BCFTOOLS_ENV
     shell:
         "bcftools +fill-tags {input} "
         "--output-type z "
@@ -80,7 +82,7 @@ rule query:
     params:
         site_id=SITE_ID,
     conda:
-        "envs/bcftools.yaml"
+        BCFTOOLS_ENV
     shell:
         "printf '#SNP_ID\\tREF\\tALT\\tAC\\tAN\\tAF\\tSITE\\n' > {output} && "
         "bcftools query "

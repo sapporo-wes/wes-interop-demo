@@ -1,20 +1,18 @@
 {
   "workflow_type": "SMK",
-  "workflow_type_version": "1.0",
-  "workflow_url": "https://raw.githubusercontent.com/sapporo-wes/wes-interop-demo/main/workflow/snp-freq.smk",
+  "workflow_type_version": "7.30.2",
+  "workflow_url": "file:snp-freq.smk",
   "workflow_engine": "snakemake",
   "workflow_engine_parameters": {
-    "--use-conda": "",
-    "--cores": "all"
+    "use-conda": true
   },
   "workflow_params": {
-    "vcf": "/data/1000g/ALL.chr2_12_15.phase3.vcf.gz",
-    "samples": "/data/1000g/ceu_samples.txt",
-    "regions": "/data/wes-interop-demo/data/target_snps.bed",
-    "site_id": "CEU"
+    "vcf": "/workflows/wes-interop-demo/data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz",
+    "samples": "/workflows/wes-interop-demo/data/1000g/ceu_samples.txt",
+    "regions": "/workflows/wes-interop-demo/data/target_snps.bed",
+    "site_id": "CEU",
+    "bcftools_env": "bcftools.yaml"
   },
-  "workflow_engine_parameters_note": "WESkit may use different engine param flags — verify with collaborators before submitting.",
-  "workflow_attachment_obj_note": "workflow_attachment_obj is Sapporo-specific. For WESkit, supply the conda env file via the appropriate attachment mechanism (TBD with collaborators).",
   "tags": {
     "demo": "wes-interop",
     "population": "CEU",

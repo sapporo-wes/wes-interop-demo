@@ -1,0 +1,16 @@
+{
+  "outputs": [
+    {
+      "file_name": "subset.vcf.gz",
+      "file_url": "http://127.0.0.1:1122/runs/2af829aa-0220-45ed-a5bb-dd7ec201d6dd/outputs/subset.vcf.gz"
+    },
+    {
+      "file_name": "summary.tsv",
+      "file_url": "http://127.0.0.1:1122/runs/2af829aa-0220-45ed-a5bb-dd7ec201d6dd/outputs/summary.tsv"
+    },
+    {
+      "file_name": "tagged.vcf.gz",
+      "file_url": "http://127.0.0.1:1122/runs/2af829aa-0220-45ed-a5bb-dd7ec201d6dd/outputs/tagged.vcf.gz"
+    }
+  ]
+}

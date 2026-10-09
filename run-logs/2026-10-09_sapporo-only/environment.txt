@@ -1,0 +1,45 @@
+
+## Host
+instance-type: m5.large
+ami-id:        ami-0739e5f3b35c608e5
+region:        ap-northeast-1
+vcpus:         2
+memory:        7.6Gi
+Linux 7.0.0-1014-aws x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+VERSION_ID="24.04"
+
+## Sapporo / Snakemake (venv /opt/sapporo/venv)
+Python 3.12.3
+Name: sapporo
+Version: 2.2.5
+snakemake 9.22.0
+
+## Conda
+conda 26.7.2
+2.9.0
+
+## Host bcftools (apt; used only for data prep)
+bcftools 1.19
+Using htslib 1.19
+
+## Executor
+sapporo.service ExecStart: /opt/sapporo/venv/bin/sapporo --host 127.0.0.1 --port 1122 --run-dir /var/lib/sapporo/runs --run-sh /opt/sapporo/run.native.sh
+run.native.sh sha256: 2fa6b25d95525d21a5206034f04211b1b4f358fee318f1f38ce2de90b47f42ca
+
+## Workflow repo on host (/opt/wes-interop-demo)
+v1.0.0
+b7c8c95d7c815256da38f39fb1dc9f7556c14f67
+
+## Input data (sha256)
+c5fb5dab9e3b66707300462668a38bbbef9f63bfec4dab2df1d9e050dc6659ce  ALL.chr2_12_15.GRCh38.phased.vcf.gz
+390c84bf7de7a720e6c2fde1acac19354ba0362cfe463ee7eb81f3c3148eb8d6  ALL.chr2_12_15.GRCh38.phased.vcf.gz.tbi
+bbe94eb466298b1dd42ff1fad421b078bb74a0b9f8c4af5a74f9bed8cb8b50ce  jpt_samples.txt
+bb868256be3b436bc94beafc9825778ed4a3cc641740d80547fc4e4914b53997  ceu_samples.txt
+e3b6f96f735271bfe5bd1fd91328cd562eb6329f994cf62360f73ca6895559ce  /opt/wes-interop-demo/data/target_snps.bed
+jpt samples: 104   ceu samples: 99
+
+## Source 1000G files (sha256)
+bf0120b7ca8705f747dec6b5aafe2ed6b1d858185fa14763f01cf403145a5e5e  ALL.chr12.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
+0b694817f4c6fd1e780c54a50a4c48fff81e2236968ccf2cc5b753802c56a98c  ALL.chr15.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
+8c2a40e796e6a47855d4b825754ba01180f855286f5f2703f2ea1c849e1500c3  ALL.chr2.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz

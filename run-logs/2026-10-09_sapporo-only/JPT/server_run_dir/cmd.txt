@@ -1,0 +1,1 @@
+snakemake --directory /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe --use-conda --cores all --configfile /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/workflow_params.json --snakefile /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/snp-freq.smk 

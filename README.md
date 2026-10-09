@@ -30,6 +30,8 @@ workflow/         Snakemake workflow, conda env, and CWL reference tools
 data/             Target SNP positions, sample lists
 params/           WES run parameters for each site (*_smk.json = active)
 scripts/          Aggregation script, submission shell script
+example-results/  Federated run output (JPT on Sapporo, CEU on WESkit)
+run-logs/         Complete logs of archived runs (WES run logs, RO-Crates, environment)
 docs/             Narrative, setup guides, next steps
 infra/            EC2 deployment for the Sapporo/Japanese site
 tests/            Synthetic test data and expected outputs

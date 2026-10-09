@@ -1,0 +1,7 @@
+{
+  "vcf": "/data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz",
+  "samples": "/data/1000g/jpt_samples.txt",
+  "regions": "/opt/wes-interop-demo/data/target_snps.bed",
+  "site_id": "JPT",
+  "bcftools_env": "bcftools.yaml"
+}

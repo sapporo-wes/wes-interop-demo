@@ -3,7 +3,8 @@
 Both populations (JPT and CEU) were run on a single Sapporo WES instance and
 submitted through the GA4GH WES API. The aim is to compare against the
 federated results in `example-results/` (v1.0.0: JPT on Sapporo, CEU on
-WESkit, June 2026).
+WESkit, June 2026). The WESkit-only counterpart is in
+`../2026-10-01_weskit-only/`.
 
 ## Result
 
@@ -14,6 +15,10 @@ All outputs are byte-identical to `example-results/` in v1.0.0:
 | `JPT/summary.tsv` | `example-results/summary_jpt.tsv` | identical |
 | `CEU/summary.tsv` | `example-results/summary_ceu.tsv` | identical |
 | `combined/combined_results.tsv` | `example-results/combined_results.tsv` | identical |
+
+The same three files are also identical to those of the WESkit-only run.
+The plot (`combined/allele_freq_comparison.png`) is not compared, because its
+bytes depend on the matplotlib build.
 
 ## Why this run exists
 
@@ -32,6 +37,8 @@ as possible and keeps the complete records.
   releases available when the June site was built (2026-06-05).
 - **Workflow:** repository tag `v1.0.0` (`b7c8c95`). `snp-freq.smk` and
   `bcftools.yaml` are sent as `workflow_attachment`.
+- **Parameters:** `params/jpt_params_sapporo.json` and
+  `params/ceu_params_sapporo.json`, byte-identical to `*/request/params.json`.
 - **Tool environment:** Snakemake builds a conda env from `bcftools.yaml`
   (bcftools 1.21, htslib 1.24). The full package list with checksums is in
   `*/conda_env_explicit.txt`.
@@ -39,7 +46,9 @@ as possible and keeps the complete records.
   chr2/12/15, merged. JPT has 104 samples and CEU has 99. File checksums
   are in `environment.txt`.
 - **Client:** requests were sent from a workstation through an SSH tunnel to
-  Sapporo's local port, so URLs in the logs show `127.0.0.1:1122`.
+  Sapporo's local port, so URLs in the logs show `127.0.0.1:1122`. The
+  per-site steps (submit, poll, fetch the run log and outputs) are the ones in
+  `scripts/submit_sapporo_only.sh`.
 
 ## Runs
 

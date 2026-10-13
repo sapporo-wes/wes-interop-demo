@@ -1,0 +1,16 @@
+{
+  "outputs": [
+    {
+      "file_name": "subset.vcf.gz",
+      "file_url": "http://127.0.0.1:1122/runs/f41bc83b-3ddb-4df0-afd1-7381a098c723/outputs/subset.vcf.gz"
+    },
+    {
+      "file_name": "summary.tsv",
+      "file_url": "http://127.0.0.1:1122/runs/f41bc83b-3ddb-4df0-afd1-7381a098c723/outputs/summary.tsv"
+    },
+    {
+      "file_name": "tagged.vcf.gz",
+      "file_url": "http://127.0.0.1:1122/runs/f41bc83b-3ddb-4df0-afd1-7381a098c723/outputs/tagged.vcf.gz"
+    }
+  ]
+}

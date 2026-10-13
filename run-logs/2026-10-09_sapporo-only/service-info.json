@@ -1,0 +1,120 @@
+{
+  "id": "sapporo-service",
+  "name": "sapporo-service",
+  "type": {
+    "group": "sapporo-wes",
+    "artifact": "wes",
+    "version": "sapporo-wes-2.1.0"
+  },
+  "description": "The instance of the Sapporo-WES.",
+  "organization": {
+    "name": "Sapporo-WES Project Team",
+    "url": "https://github.com/orgs/sapporo-wes/people"
+  },
+  "contactUrl": "https://github.com/sapporo-wes/sapporo-service/issues",
+  "documentationUrl": "https://github.com/sapporo-wes/sapporo-service/blob/main/README.md",
+  "createdAt": "2026-10-09T05:24:31Z",
+  "updatedAt": "2026-10-09T05:24:31Z",
+  "environment": null,
+  "version": "2.2.5",
+  "workflow_type_versions": {
+    "CWL": {
+      "workflow_type_version": [
+        "v1.0",
+        "v1.1",
+        "v1.2"
+      ]
+    },
+    "WDL": {
+      "workflow_type_version": [
+        "1.0"
+      ]
+    },
+    "NFL": {
+      "workflow_type_version": [
+        "DSL2"
+      ]
+    },
+    "SMK": {
+      "workflow_type_version": [
+        "1.0"
+      ]
+    },
+    "StreamFlow": {
+      "workflow_type_version": [
+        "v1.0"
+      ]
+    }
+  },
+  "supported_wes_versions": [
+    "sapporo-wes-2.1.0"
+  ],
+  "supported_filesystem_protocols": [
+    "file",
+    "http",
+    "https"
+  ],
+  "workflow_engine_versions": {
+    "cwltool": {
+      "workflow_engine_version": [
+        "3.1.20260108082145"
+      ]
+    },
+    "nextflow": {
+      "workflow_engine_version": [
+        "25.10.4"
+      ]
+    },
+    "toil": {
+      "workflow_engine_version": [
+        "9.1.1"
+      ]
+    },
+    "cromwell": {
+      "workflow_engine_version": [
+        "92"
+      ]
+    },
+    "snakemake": {
+      "workflow_engine_version": [
+        "v9.16.3"
+      ]
+    },
+    "ep3": {
+      "workflow_engine_version": [
+        "v1.7.0"
+      ]
+    },
+    "streamflow": {
+      "workflow_engine_version": [
+        "0.2.0.dev14"
+      ]
+    }
+  },
+  "default_workflow_engine_parameters": {
+    "snakemake": [
+      {
+        "name": "--cores",
+        "type": "int",
+        "default_value": "1"
+      }
+    ]
+  },
+  "system_state_counts": {
+    "UNKNOWN": 0,
+    "QUEUED": 0,
+    "INITIALIZING": 0,
+    "RUNNING": 0,
+    "PAUSED": 0,
+    "COMPLETE": 0,
+    "EXECUTOR_ERROR": 0,
+    "SYSTEM_ERROR": 0,
+    "CANCELED": 0,
+    "CANCELING": 0,
+    "PREEMPTED": 0,
+    "DELETED": 0,
+    "DELETING": 0
+  },
+  "auth_instructions_url": "https://github.com/sapporo-wes/sapporo-service/blob/main/README.md#authentication",
+  "tags": {}
+}

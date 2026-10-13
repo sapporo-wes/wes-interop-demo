@@ -1,0 +1,44 @@
+{
+  "workflow_params": {
+    "vcf": "/data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz",
+    "samples": "/data/1000g/jpt_samples.txt",
+    "regions": "/opt/wes-interop-demo/data/target_snps.bed",
+    "site_id": "JPT",
+    "bcftools_env": "bcftools.yaml"
+  },
+  "workflow_type": "SMK",
+  "workflow_type_version": "1.0",
+  "tags": {
+    "demo": "wes-interop",
+    "population": "JPT",
+    "dataset": "1000genomes-GRCh38"
+  },
+  "workflow_engine": "snakemake",
+  "workflow_engine_version": null,
+  "workflow_engine_parameters": {
+    "--use-conda": "",
+    "--cores": "all"
+  },
+  "workflow_url": "file:snp-freq.smk",
+  "workflow_attachment": [
+    {
+      "filename": "snp-freq.smk",
+      "size": 2914,
+      "headers": {
+        "content-disposition": "form-data; name=\"workflow_attachment\"; filename=\"snp-freq.smk\"",
+        "content-type": "application/octet-stream"
+      },
+      "content_type": "application/octet-stream"
+    },
+    {
+      "filename": "bcftools.yaml",
+      "size": 105,
+      "headers": {
+        "content-disposition": "form-data; name=\"workflow_attachment\"; filename=\"bcftools.yaml\"",
+        "content-type": "application/octet-stream"
+      },
+      "content_type": "application/octet-stream"
+    }
+  ],
+  "workflow_attachment_obj": []
+}

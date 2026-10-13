@@ -1,0 +1,17 @@
+[Unit]
+Description=Sapporo WES service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=sapporo
+Group=sapporo
+WorkingDirectory=/var/lib/sapporo
+Environment=PATH=/opt/sapporo/venv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/opt/sapporo/venv/bin/sapporo --host 127.0.0.1 --port 1122 --run-dir /var/lib/sapporo/runs --run-sh /opt/sapporo/run.native.sh
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

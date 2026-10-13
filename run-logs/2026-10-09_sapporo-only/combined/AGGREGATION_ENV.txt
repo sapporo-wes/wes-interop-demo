@@ -1,0 +1,1 @@
+aggregate.py (repo v1.0.0) run on the Sapporo host with the run's conda env (.snakemake/conda env built from bcftools.yaml; see ../JPT/conda_env_explicit.txt): python 3.14.8 scipy 1.18.1 numpy 2.5.3 matplotlib 3.11.2

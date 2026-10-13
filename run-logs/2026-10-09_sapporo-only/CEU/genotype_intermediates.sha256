@@ -1,0 +1,5 @@
+a8236a9fffa301a0098acaaafee741c20d57bff7cfb85d4f84dfa78c5662db5d  ./exe/subset.raw.vcf.gz
+ef44bd4c3900eebb668e7ee9a9825f1c1d11d7281f3ac7e1dc47d76b04613d9b  ./exe/subset.vcf.gz
+071e5dad3fc5c9eaca3288bbb4ce44f4ed1b794c0f818f120e1482463982a5e3  ./exe/tagged.vcf.gz
+ef44bd4c3900eebb668e7ee9a9825f1c1d11d7281f3ac7e1dc47d76b04613d9b  ./outputs/subset.vcf.gz
+071e5dad3fc5c9eaca3288bbb4ce44f4ed1b794c0f818f120e1482463982a5e3  ./outputs/tagged.vcf.gz

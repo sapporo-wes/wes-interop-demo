@@ -43,3 +43,12 @@ jpt samples: 104   ceu samples: 99
 bf0120b7ca8705f747dec6b5aafe2ed6b1d858185fa14763f01cf403145a5e5e  ALL.chr12.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
 0b694817f4c6fd1e780c54a50a4c48fff81e2236968ccf2cc5b753802c56a98c  ALL.chr15.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
 8c2a40e796e6a47855d4b825754ba01180f855286f5f2703f2ea1c849e1500c3  ALL.chr2.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
+
+## Merged VCF content checksums (added 2026-10-20, see README note 7)
+# The merged VCF above was deleted with the instance. These come from a
+# rebuild: the three source files above, downloaded again (same sha256),
+# merged with the concat command in host-config/provision.sh (bcftools 1.19).
+1ba5cc6177d3af20a5a6ed672cabfdd406ee810233ab8810cd61d5927e311e1c  header, excluding ##bcftools* lines
+  (bcftools view -h <merged vcf> | grep -v '^##bcftools' | sha256sum)
+641f63cffff66ba439b9e9ddcdbb3e82a3abbcc164006037e1777c9eb9a86382  records at the 3 target SNPs
+  (bcftools view -H -r 2:135851076,12:111803962,15:48134287 <merged vcf> | sha256sum)

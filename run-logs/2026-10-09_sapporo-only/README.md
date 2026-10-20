@@ -44,7 +44,8 @@ as possible and keeps the complete records.
   `*/conda_env_explicit.txt`.
 - **Input data:** 1000 Genomes 20190312 GRCh38 biallelic SNV/indel release,
   chr2/12/15, merged. JPT has 104 samples and CEU has 99. File checksums
-  are in `environment.txt`.
+  are in `environment.txt`. The content matches the WESkit site's input
+  (note 7).
 - **Client:** requests were sent from a workstation through an SSH tunnel to
   Sapporo's local port, so URLs in the logs show `127.0.0.1:1122`. The
   per-site steps (submit, poll, fetch the run log and outputs) are the ones in
@@ -106,3 +107,16 @@ combined/                    aggregate.py output (TSV + plot)
 6. **Aggregation ran on the Sapporo host.** `aggregate.py` from v1.0.0 was run
    with the run's conda env (`bcftools.yaml` includes scipy, numpy and
    matplotlib). Versions are in `combined/AGGREGATION_ENV.txt`.
+7. **The input data matches the WESkit site's in content.** The merged VCF
+   differs from the WESkit site's by checksum, because `bcftools concat`
+   writes its command and date into the header. Two checks show that the
+   content is the same. First, the intermediate VCFs of the two runs
+   (`*/server_run_dir/exe/*.vcf.gz` here, `*/server_run_dir/*.vcf.gz` in
+   `../2026-10-01_weskit-only/`) have identical records, and identical
+   headers apart from the `##bcftools*` lines. Second, the merged VCF was
+   deleted with the instance, so on 2026-10-20 it was rebuilt: the three
+   source files were downloaded again, matched the checksums in
+   `environment.txt`, and were merged with the `concat` command in
+   `host-config/provision.sh` (bcftools 1.19). The rebuild's content
+   checksums, added to `environment.txt`, equal those of the WESkit site's
+   merged VCF.

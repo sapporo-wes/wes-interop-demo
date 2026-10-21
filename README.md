@@ -29,7 +29,9 @@ A CWL equivalent (`workflow/snp-freq.cwl` + `workflow/tools/`) is kept as refere
 workflow/         Snakemake workflow, conda env, and CWL reference tools
 data/             Target SNP positions, sample lists
 params/           WES run parameters for each site (*_smk.json = active)
-scripts/          Aggregation script, submission shell script
+scripts/          Aggregation script, submission shell scripts
+example-results/  Federated run output (JPT on Sapporo, CEU on WESkit)
+run-logs/         Logs of archived runs, one directory per run with its own README
 docs/             Narrative, setup guides, next steps
 infra/            EC2 deployment for the Sapporo/Japanese site
 tests/            Synthetic test data and expected outputs

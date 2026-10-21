@@ -1,0 +1,92 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-10-09 06:24:30
+  Workflow ID: 47ed3477-2d88-4b63-a854-3e5be42d7d1c
+  Platform: Linux-7.0.0-1014-aws-x86_64-with-glibc2.39
+  Host: ip-172-31-26-17
+  User: sapporo
+  Snakemake version: 9.22.0
+  Python version: 3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]
+  Command: /opt/sapporo/venv/bin/snakemake --directory /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe --use-conda --cores all --configfile /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/workflow_params.json --snakefile /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/snp-freq.smk
+  Snakefile: /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/snp-freq.smk
+  Base directory: /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe
+  Run directory: /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723
+  Working directory: /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe
+  Config file(s): [PosixPath('/var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/workflow_params.json')]
+  Config MD5: c29e70840d15633a81a1a4463f278a53
+
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however important for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment bcftools.yaml...
+Downloading and installing remote packages.
+Cleaning up conda package tarballs.
+Environment for /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/bcftools.yaml created (location: .snakemake/conda/54438c59f52f3069c0af43cfa1f31c49_)
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job          count
+---------  -------
+subset           1
+fill_tags        1
+query            1
+all              1
+total            4
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Oct  9 06:24:44 2026]
+localrule subset:
+    input: /data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz, /data/1000g/ALL.chr2_12_15.GRCh38.phased.vcf.gz.tbi, /data/1000g/jpt_samples.txt, /opt/wes-interop-demo/data/target_snps.bed
+    output: subset.vcf.gz
+    jobid: 3
+    reason: Missing output files: subset.vcf.gz
+    resources: tmpdir=/tmp
+Activating conda environment: .snakemake/conda/54438c59f52f3069c0af43cfa1f31c49_
+[Fri Oct  9 06:24:45 2026]
+Finished jobid: 3 (Rule: subset)
+1 of 4 steps (25%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Oct  9 06:24:45 2026]
+localrule fill_tags:
+    input: subset.vcf.gz
+    output: tagged.vcf.gz
+    jobid: 2
+    reason: Missing output files: tagged.vcf.gz; Input files updated by another job: subset.vcf.gz
+    resources: tmpdir=/tmp
+Activating conda environment: .snakemake/conda/54438c59f52f3069c0af43cfa1f31c49_
+[Fri Oct  9 06:24:45 2026]
+Finished jobid: 2 (Rule: fill_tags)
+2 of 4 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Oct  9 06:24:45 2026]
+localrule query:
+    input: tagged.vcf.gz
+    output: summary.tsv
+    jobid: 1
+    reason: Missing output files: summary.tsv; Input files updated by another job: tagged.vcf.gz
+    resources: tmpdir=/tmp
+Activating conda environment: .snakemake/conda/54438c59f52f3069c0af43cfa1f31c49_
+[Fri Oct  9 06:24:45 2026]
+Finished jobid: 1 (Rule: query)
+3 of 4 steps (75%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Oct  9 06:24:45 2026]
+localrule all:
+    input: summary.tsv
+    jobid: 0
+    reason: Input files updated by another job: summary.tsv
+    resources: tmpdir=/tmp
+[Fri Oct  9 06:24:45 2026]
+Finished jobid: 0 (Rule: all)
+4 of 4 steps (100%) done
+Complete log(s): /var/lib/sapporo/runs/f4/f41bc83b-3ddb-4df0-afd1-7381a098c723/exe/.snakemake/log/2026-10-09T062430.362314.snakemake.log
